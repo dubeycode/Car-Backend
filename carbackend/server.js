@@ -2,6 +2,7 @@ import express from "express";
 import { eq } from "drizzle-orm";
 import { db } from "./db.js";
 import { cars } from "./schema.js";
+import { Client } from "@neondatabase/serverless";
 
 const app = express();
 const PORT = 3000;
@@ -45,37 +46,45 @@ router.post("/cars", async (req, res) => {
 router.put("/cars/:id", async (req, res) => {
   const { make, model, year, price } = req.body;
   const { id } = req.params;
- const result = await db
-  .update(cars)
-  .set({ make, model, year, price })
-  .where(eq(cars.id, Number(id)))
-  .returning();
+  const result = await db
+    .update(cars)
+    .set({ make, model, year, price })
+    .where(eq(cars.id, Number(id)))
+    .returning();
 
-if (!result || result.length === 0) {
-  return res.status(404).json({ error: "Car not found" });
-}
-
-    const updatedCar = await db
-      .select()
-      .from(cars)
-      .where(eq(cars.id, Number(id)));
-    res.json(updatedCar[0]);
-});
-
-router.delete("/cars/:id", (req, res) => {
-  const carId = parseInt(req.params.id);
-  const carIndex = cars.findIndex((c) => c.id === carId);
-
-  if (carIndex === -1) {
+  if (!result || result.length === 0) {
     return res.status(404).json({ error: "Car not found" });
   }
 
-  const deletedCar = cars.splice(carIndex, 1)[0];
+  const updatedCar = await db
+    .select()
+    .from(cars)
+    .where(eq(cars.id, Number(id)));
+  res.json(updatedCar[0]);
+});
 
-  res.json({
-    message: "Car deleted successfully",
-    car: deletedCar,
-  });
+router.delete("/cars/:id", async (req, res) => {
+  const id  = Number(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({ error: "Invalid car ID" });
+  }
+  try {
+    const deleted  = await db
+    .delete(cars)
+    .where(eq(cars.id, id))
+    .returning();
+
+    if (deleted.length === 0) {
+      return res.status(404).json({ error: "Car not found" });
+    }
+
+    res.json({
+      message: "Car deleted successfully",
+      car: deleted[0],
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 router.get("/cars/:id", (req, res) => {
