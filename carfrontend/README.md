@@ -1,16 +1,93 @@
-# React + Vite
+# Car API – Frontend & Backend (Learning Project)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a Car API application built for learning and educational purposes only.
+It demonstrates how a frontend and backend work together using PostgreSQL, an ORM, and Apache.
 
-Currently, two official plugins are available:
+ This project is not intended for production use.
+It exists purely to understand concepts, architecture, and data flow.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*  Purpose of the Project *
 
-## React Compiler
+The main goal of this project is to learn and practice:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+How a frontend communicates with a backend API
 
-## Expanding the ESLint configuration
+How to work with PostgreSQL as a relational database
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+How to use an ORM (Object-Relational Mapping) for database operations
+
+How Apache can be used to serve and manage backend services
+
+Basic CRUD operations (Create, Read, Update, Delete)
+
+Project structure and API design fundamentals
+
+* Project Structure *
+Frontend
+
+Consumes the Car API endpoints
+
+Displays car-related data
+
+Sends requests (GET, POST, PUT, DELETE) to the backend
+
+Built only to understand API integration (not optimized for UI/UX)
+
+Backend
+
+Provides RESTful API endpoints
+
+Handles business logic
+
+Connects to PostgreSQL using an ORM
+
+Processes and validates requests from the frontend
+
+* Database *
+
+PostgreSQL is used as the database
+
+Stores car-related data such as:
+
+Car name
+
+Model
+
+Brand
+
+Year
+
+Price (example fields)
+
+Database interactions are handled through an ORM, reducing raw SQL usage
+
+* Technologies Used *
+
+Backend: (Express)
+
+Frontend: (React)
+
+Database: PostgreSQL
+
+ORM: Used to map database tables to objects
+
+Server: Apache
+
+ Learning Outcomes
+
+By working on this project, you will understand:
+
+How APIs work internally
+
+How PostgreSQL integrates with backend applications
+
+How ORM simplifies database queries
+
+How frontend and backend communicate
+
+How Apache fits into the web application stack
+
+ Disclaimer
+
+This project is created only for learning and experimentation.
+Security, performance, and scalability best practices are not fully implemented.
